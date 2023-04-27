@@ -8,8 +8,8 @@ public interface HomeAPI {
 
     TryBuilder<HomeAPI> BUILDER = TryBuilder.of(
             HomeAPI.class,
-            "com.technovision.homegui.home.impl.command.CommandHomeAPI",
-            "com.technovision.homegui.home.impl.essentials.EssentialsHomeAPI"
+            "com.technovision.homegui.home.impl.essentials.EssentialsHomeAPI",
+            "com.technovision.homegui.home.impl.command.CommandHomeAPI"
     ).logger(Homegui.PLUGIN.getLogger());
 
     static HomeAPI get() {
