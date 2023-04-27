@@ -2,6 +2,7 @@ package com.technovision.homegui.home.impl.essentials;
 
 import com.earth2me.essentials.CommandSource;
 import com.earth2me.essentials.Essentials;
+import com.earth2me.essentials.IEssentialsModule;
 import com.earth2me.essentials.User;
 import com.earth2me.essentials.commands.EssentialsCommand;
 import com.earth2me.essentials.commands.IEssentialsCommand;
@@ -49,7 +50,22 @@ public class EssentialsHomeAPI implements HomeAPI {
     }
 
     private void runCommand(String cmd, User user, String[] args) {
-        IEssentialsCommand ob = this.plugin.getCommandMap().get(cmd);
+        IEssentialsCommand ob = null;
+
+        try {
+            Method m = Essentials.class.getDeclaredMethod("loadCommand", String.class, String.class, IEssentialsModule.class, ClassLoader.class);
+            m.setAccessible(true);
+            ob = (IEssentialsCommand) m.invoke(
+                    this.plugin,
+                    "com.earth2me.essentials.commands.Command",
+                    cmd,
+                    null,
+                    Essentials.class.getClassLoader()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (ob == null) {
             Homegui.PLUGIN.getLogger().warning("Cannot find essentials command \"" + cmd + "\"");
             return;
