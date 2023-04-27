@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.gui.ChangeIconGUI;
 import com.technovision.homegui.gui.HomeGUI;
+import com.technovision.homegui.home.HomeAPI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,11 +29,11 @@ public class HomeEvents implements Listener {
                 String name = HomeGUI.allHomes.get(playerID).get(slotNum).getName();
                 //Left Click
                 if (event.isLeftClick()) {
-                    player.performCommand("essentials:home " + name);
+                    HomeAPI.get().goToHome(player, name);
                     player.closeInventory();
                     //Middle Click
                 } else if (event.getClick() == ClickType.MIDDLE) {
-                    player.performCommand("essentials:delhome " + name);
+                    HomeAPI.get().deleteHome(player, name);
                     Homegui.dataReader.removeIcon(playerID, name);
                     player.closeInventory();
                     //Right Click

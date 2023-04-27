@@ -2,6 +2,7 @@ package com.technovision.homegui.commands;
 
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.gui.HomeGUI;
+import com.technovision.homegui.home.HomeAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +25,7 @@ public class HomeCommand implements CommandExecutor {
                     HomeGUI gui = new HomeGUI(player.getUniqueId());
                     player.openInventory(gui.getInventory());
                 } else if (args.length == 1) {
-                    player.performCommand("essentials:home " + args[0]);
+                    HomeAPI.get().goToHome(player, args[0]);
                 }
             }
 
