@@ -72,7 +72,7 @@ public class EssentialsHomeAPI implements HomeAPI {
         }
 
         try {
-            if (ob instanceof EssentialsCommand) {
+            if (/* ob instanceof EssentialsCommand */ false) {
                 EssentialsCommand qual = (EssentialsCommand) ob;
 
                 Class<? extends EssentialsCommand> clazz = qual.getClass();
