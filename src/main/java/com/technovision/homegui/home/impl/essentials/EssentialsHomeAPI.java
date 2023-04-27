@@ -4,8 +4,10 @@ import com.earth2me.essentials.CommandSource;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.IEssentialsModule;
 import com.earth2me.essentials.User;
+import com.earth2me.essentials.commands.Commandhome;
 import com.earth2me.essentials.commands.EssentialsCommand;
 import com.earth2me.essentials.commands.IEssentialsCommand;
+import com.earth2me.essentials.commands.NoChargeException;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.home.HomeAPI;
 import org.bukkit.Bukkit;
@@ -95,6 +97,7 @@ public class EssentialsHomeAPI implements HomeAPI {
 
                 ob.run(user.getServer(), user, cmd, pc, args);
             }
+        } catch (NoChargeException ignored) {
         } catch (Exception e) {
             e.printStackTrace();
             Homegui.PLUGIN.getLogger().warning("Exception while running essentials command \"" + cmd + "\", see details above");

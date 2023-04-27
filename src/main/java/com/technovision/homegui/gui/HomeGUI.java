@@ -4,6 +4,7 @@ import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.EssentialsReader;
 import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +53,7 @@ public class HomeGUI implements InventoryHolder {
             String location = "§f " + home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z";
             for (int i = 0; i < lore.size(); i++) {
                 String newLine = lore.get(i).replace("{location}", location);
-                newLine = newLine.replace("{world}", home.getWorld());
+                newLine = newLine.replace("{world}", formatHomeWorld(home.getWorld()));
                 if (newLine.contains("&")) {
                     newLine = newLine.replace("&", "§");
                 } else {
@@ -62,6 +63,18 @@ public class HomeGUI implements InventoryHolder {
             }
             inv.addItem(createGuiItem(item, name, lore));
         }
+    }
+
+    private String formatHomeWorld(String home) {
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(home);
+        } catch (IllegalArgumentException e) {
+            return home;
+        }
+        World ob = Bukkit.getWorld(uuid);
+        if (ob != null) return ob.getName();
+        return home;
     }
 
     private ItemStack createGuiItem(final ItemStack item, final String name, final List<String> lore) {
